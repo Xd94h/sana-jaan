@@ -109,7 +109,7 @@
   .countdown-box{
     background:linear-gradient(135deg, var(--pink-deep), var(--pink));
     border-radius:28px;
-    padding:50px 30px;
+    padding:36px 16px;
     color:#fff;
     box-shadow:0 20px 40px -18px rgba(200,30,120,0.5);
   }
@@ -117,27 +117,41 @@
   .timer{
     display:flex;
     justify-content:center;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-top:26px;
+    align-items:stretch;
+    gap:8px;
+    flex-wrap:nowrap;
+    margin-top:22px;
   }
   .timer .unit{
     background:rgba(255,255,255,0.16);
-    border-radius:18px;
-    padding:18px 14px;
-    min-width:88px;
+    border-radius:14px;
+    padding:10px 4px;
+    flex:1 1 0;
+    min-width:0;
+    max-width:84px;
     backdrop-filter:blur(4px);
   }
   .timer .num{
     font-family:'Baloo 2', cursive;
-    font-size:2.4rem;
+    font-size:1.6rem;
     font-weight:700;
     display:block;
   }
   .timer .lbl{
-    font-size:0.75rem;
-    letter-spacing:1px;
+    font-size:0.6rem;
+    letter-spacing:0.5px;
     opacity:0.85;
+  }
+  @media (min-width:480px){
+    .timer .unit{ padding:16px 10px; max-width:100px; }
+    .timer .num{ font-size:2.1rem; }
+    .timer .lbl{ font-size:0.7rem; letter-spacing:1px; }
+  }
+  @media (max-width:340px){
+    .timer{ gap:5px; }
+    .timer .unit{ padding:8px 2px; border-radius:11px; }
+    .timer .num{ font-size:1.3rem; }
+    .timer .lbl{ font-size:0.52rem; }
   }
   .countdown-done{
     display:none;
@@ -450,29 +464,61 @@
     min-height:1.6rem;
   }
   .gift-reveal{
-    margin-top:26px;
+    position:fixed;
+    inset:0;
     width:100%;
-    max-width:420px;
-    max-height:0;
+    height:100%;
+    background:rgba(40,10,25,0.72);
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:70px 20px 30px 20px;
     opacity:0;
-    overflow:hidden;
-    border-radius:20px;
-    transform:scale(0.85);
-    transition:max-height 0.7s ease, opacity 0.6s ease, transform 0.6s ease;
-    box-shadow:0 0 0 rgba(200,30,120,0);
+    visibility:hidden;
+    z-index:200;
+    transition:opacity 0.4s ease, visibility 0.4s ease;
   }
   .gift-reveal.show{
-    max-height:600px;
     opacity:1;
+    visibility:visible;
+  }
+  .gift-reveal-inner{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    border-radius:20px;
+    overflow:hidden;
+    transform:scale(0.85);
+    transition:transform 0.5s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 20px 44px -18px rgba(0,0,0,0.6);
+  }
+  .gift-reveal.show .gift-reveal-inner{
     transform:scale(1);
-    box-shadow:0 20px 44px -18px rgba(200,30,120,0.5);
   }
   .gift-reveal img{
     width:100%;
     display:block;
     border-radius:20px;
   }
-  .gift-reveal.no-photo{
+  .gift-close{
+    position:fixed;
+    top:18px;
+    right:18px;
+    width:40px;
+    height:40px;
+    background:#fff;
+    color:var(--pink-deep);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.3rem;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(0,0,0,0.35);
+    z-index:201;
+  }
+  .gift-reveal.no-photo .gift-reveal-inner{
     background:linear-gradient(160deg, var(--blush), #fff);
     display:flex;
     align-items:center;
@@ -480,7 +526,7 @@
     aspect-ratio:4/5;
   }
   .gift-reveal.no-photo img{ display:none; }
-  .gift-reveal.no-photo::after{
+  .gift-reveal.no-photo .gift-reveal-inner::after{
     content:'🖼️  Apni surprise photo yahan lagao';
     font-family:'Baloo 2', cursive;
     color:var(--pink-deep);
@@ -555,27 +601,27 @@
   <div class="gallery" id="gallery-grid">
     <!-- Replace photo1.jpg ... photo6.jpg with your actual image filenames -->
     <div class="polaroid"><div class="tape"></div>
-      <div class="frame"><img src="photo1.jpg" alt="Memory 1" onerror="this.parentElement.innerHTML='📷'"></div>
+      <div class="frame"><img src="PASTE LINK HERE 1" alt="Memory 1" onerror="this.parentElement.innerHTML='📷'"></div>
       <div class="cap">Pehli mulaqat 🌸</div>
     </div>
     <div class="polaroid"><div class="tape"></div>
-      <div class="frame"><img src="photo2.jpg" alt="Memory 2" onerror="this.parentElement.innerHTML='📷'"></div>
+      <div class="frame"><img src="PASTE LINK HERE 2" alt="Memory 2" onerror="this.parentElement.innerHTML='📷'"></div>
       <div class="cap">Hum dono 💕</div>
     </div>
     <div class="polaroid"><div class="tape"></div>
-      <div class="frame"><img src="photo3.jpg" alt="Memory 3" onerror="this.parentElement.innerHTML='📷'"></div>
+      <div class="frame"><img src="PASTE LINK HERE 3" alt="Memory 3" onerror="this.parentElement.innerHTML='📷'"></div>
       <div class="cap">Wo pyari si smile 😊</div>
     </div>
     <div class="polaroid"><div class="tape"></div>
-      <div class="frame"><img src="photo4.jpg" alt="Memory 4" onerror="this.parentElement.innerHTML='📷'"></div>
+      <div class="frame"><img src="PASTE LINK HERE 4" alt="Memory 4" onerror="this.parentElement.innerHTML='📷'"></div>
       <div class="cap">Best din ❤️</div>
     </div>
     <div class="polaroid"><div class="tape"></div>
-      <div class="frame"><img src="photo5.jpg" alt="Memory 5" onerror="this.parentElement.innerHTML='📷'"></div>
+      <div class="frame"><img src="PASTE LINK HERE 5" alt="Memory 5" onerror="this.parentElement.innerHTML='📷'"></div>
       <div class="cap">Masti aur hasi 😄</div>
     </div>
     <div class="polaroid"><div class="tape"></div>
-      <div class="frame"><img src="photo6.jpg" alt="Memory 6" onerror="this.parentElement.innerHTML='📷'"></div>
+      <div class="frame"><img src="PASTE LINK HERE 6" alt="Memory 6" onerror="this.parentElement.innerHTML='📷'"></div>
       <div class="cap">Forever tum ✨</div>
     </div>
   </div>
@@ -663,11 +709,16 @@
       <div class="gift-glow" id="giftGlow"></div>
     </div>
     <div class="gift-msg" id="giftMsg">👆 box pe tap karo</div>
-    <div class="gift-reveal" id="giftReveal">
-      <img id="giftRevealImg" src="gift.jpg" alt="Surprise" onerror="this.parentElement.classList.add('no-photo')">
-    </div>
   </div>
 </section>
+
+<!-- ===================== GIFT REVEAL POPUP ===================== -->
+<div class="gift-reveal" id="giftReveal">
+  <div class="gift-close" id="giftClose">✕</div>
+  <div class="gift-reveal-inner">
+    <img id="giftRevealImg" src="PASTE LINK HERE 7" alt="Surprise" onerror="this.parentElement.parentElement.classList.add('no-photo')">
+  </div>
+</div>
 
 <footer>
   <div class="heart">💗</div>
@@ -732,7 +783,7 @@
   function scratchAt(x,y){
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x,y,22,0,Math.PI*2);
+    ctx.arc(x,y,42,0,Math.PI*2);
     ctx.fill();
   }
   function getPos(e){
@@ -768,6 +819,14 @@
   // ---------- gift box ----------
   const giftBox = document.getElementById('giftBox');
   const giftMsg = document.getElementById('giftMsg');
+  const giftReveal = document.getElementById('giftReveal');
+  const giftClose = document.getElementById('giftClose');
+  giftClose.addEventListener('click', ()=>{
+    giftReveal.classList.remove('show');
+  });
+  giftReveal.addEventListener('click', (e)=>{
+    if(e.target === giftReveal) giftReveal.classList.remove('show');
+  });
   let giftOpened = false;
   giftBox.addEventListener('click', ()=>{
     if(giftOpened){
