@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Sana 💗</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
 <style>
   :root{
   
@@ -254,7 +254,7 @@
   .envelope-wrap{
     display:flex;
     justify-content:center;
-    margin-top:40px;
+    margin-top:96px;
     perspective:1400px;
   }
   .envelope{
@@ -300,20 +300,84 @@
     color:var(--pink-deep);
     opacity:0.75;
   }
-  .letter-paper{
-    max-width:520px;
-    margin:26px auto 0 auto;
-    background:#fffaf6;
-    border-radius:14px;
-    padding:34px 30px;
-    box-shadow:0 16px 34px -18px rgba(0,0,0,0.25);
-    text-align:left;
-    line-height:1.75;
-    font-size:1rem;
-    display:none;
+
+  /* ---------- letter modal (opens full screen) ---------- */
+  .letter-modal{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(40,10,25,0.72);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    opacity:0;
+    visibility:hidden;
+    z-index:300;
+    transition:opacity 0.4s ease, visibility 0.4s ease;
   }
-  .letter-paper.show{ display:block; }
-  .letter-paper .sign{
+  .letter-modal.show{
+    opacity:1;
+    visibility:visible;
+  }
+  .letter-close{
+    position:fixed;
+    top:18px;
+    right:18px;
+    width:40px;
+    height:40px;
+    background:#fff;
+    color:var(--pink-deep);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.3rem;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(0,0,0,0.35);
+    z-index:301;
+  }
+  .letter-modal-inner{
+    position:relative;
+    width:100%;
+    max-width:520px;
+    background:#fffaf6;
+    border-radius:26px;
+    border:4px solid var(--pink);
+    outline:2px dashed var(--gold);
+    outline-offset:-12px;
+    padding:40px 28px 26px 28px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+    transform:scale(0.82);
+    transition:transform 0.5s cubic-bezier(.34,1.56,.64,1);
+    z-index:1;
+  }
+  .letter-modal.show .letter-modal-inner{
+    transform:scale(1);
+  }
+  .teddy-sticker{
+    position:absolute;
+    font-size:2.4rem;
+    filter:drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+    z-index:10;
+  }
+  .teddy-sticker.tl{ top:-20px; left:-16px; transform:rotate(-18deg); }
+  .teddy-sticker.tr{ top:-20px; right:-16px; transform:rotate(18deg); }
+  .teddy-sticker.bl{ bottom:-20px; left:-16px; transform:rotate(20deg); }
+  .teddy-sticker.br{ bottom:-20px; right:-16px; transform:rotate(-20deg); }
+  .letter-content{
+    max-height:78vh;
+    overflow:hidden;
+    text-align:left;
+    line-height:1.55;
+    font-size:0.92rem;
+  }
+  .letter-content p{
+    margin-bottom:12px;
+  }
+  .letter-content .sign{
     margin-top:18px;
     font-family:'Baloo 2', cursive;
     color:var(--pink-deep);
@@ -546,6 +610,82 @@
     to{ transform:translateY(105vh) rotate(540deg); opacity:0.2; }
   }
 
+  /* ---------- voice note ---------- */
+  .vn-wrap{
+    margin-top:44px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+  }
+  .vn-pill{
+    width:100%;
+    max-width:460px;
+    background:#fffdfd;
+    border-radius:999px;
+    padding:12px 22px 12px 12px;
+    box-shadow:0 16px 34px -14px rgba(200,30,120,0.35);
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .vn-play{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:none;
+    background:linear-gradient(135deg, var(--pink-deep), var(--pink));
+    color:#fff;
+    font-size:1rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+    box-shadow:0 8px 16px -6px rgba(200,30,120,0.6);
+  }
+  .vn-bars{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:3px;
+    height:24px;
+    flex:1;
+    min-width:0;
+  }
+  .vn-bars span{
+    display:inline-block;
+    width:3px;
+    border-radius:2px;
+    background:var(--pink);
+    opacity:0.75;
+    flex-shrink:0;
+    transform-origin:center;
+  }
+  .vn-bars.playing span{
+    animation:vnWave 1s ease-in-out infinite;
+    opacity:1;
+  }
+  @keyframes vnWave{
+    0%,100%{ transform:scaleY(0.55); }
+    50%{ transform:scaleY(1.25); }
+  }
+  .vn-label{
+    font-size:0.85rem;
+    color:#8a8a92;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .vn-caption{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:700;
+    color:var(--pink-deep);
+    font-size:1.3rem;
+    text-align:center;
+    letter-spacing:0.3px;
+  }
+
   /* ---------- footer ---------- */
   footer{
     text-align:center;
@@ -627,6 +767,26 @@
   </div>
 </section>
 
+<!-- ===================== VOICE NOTE ===================== -->
+<section id="voicenote">
+  <audio id="vnAudio" src="voice-note.mp3" preload="metadata"></audio>
+  <div class="vn-wrap">
+    <div class="vn-pill">
+      <button class="vn-play" id="vnPlayBtn">▶</button>
+      <div class="vn-bars" id="vnBars">
+        <span style="height:10px;"></span><span style="height:18px;"></span><span style="height:24px;"></span>
+        <span style="height:14px;"></span><span style="height:22px;"></span><span style="height:12px;"></span>
+        <span style="height:20px;"></span><span style="height:16px;"></span><span style="height:24px;"></span>
+        <span style="height:10px;"></span><span style="height:18px;"></span><span style="height:22px;"></span>
+        <span style="height:14px;"></span><span style="height:20px;"></span><span style="height:12px;"></span>
+        <span style="height:24px;"></span><span style="height:16px;"></span><span style="height:10px;"></span>
+      </div>
+      <span class="vn-label">voice note</span>
+    </div>
+    <div class="vn-caption">WRITE CONTEEXT HERE</div>
+  </div>
+</section>
+
 <!-- ===================== SCRATCH CARD ===================== -->
 <section id="scratch">
   <span class="tag">Ek chhota sa surprise 🎁</span>
@@ -655,14 +815,25 @@
     </div>
   </div>
   <div class="env-hint" id="env-hint">👆 envelope pe click karo aur letter kholo</div>
-  <div class="letter-paper" id="letterPaper">
-    <p>Sabse pyari Sana, 💋</p><br>
-    <p>Aaj ka din sirf tumhare liye hai, aur main chahta hoon tumhe pata ho ki tum meri zindagi mein kitni khaas ho. Tumhari muskurahat mera sabse acha pal hoti hai, aur tumhare saath bitaya har chhota sa waqt yaadgaar ban jaata hai. 💌 </p><br>
-    <p>Is naye saal mein tumhe ढेर saari khushiyan milein, saare sapne poore hon, aur tum hamesha aise hi hasti muskurati raho. Main hamesha tumhare saath hoon — har khushi mein, har mushkil mein. 😘 </p><br>
-    <p>Happy Birthday, meri jaan. Tumse bahut pyaar hai. 💗</p>
-    <div class="sign">— Tumhara altaf ~🤍 </div>
-  </div>
 </section>
+
+<!-- ===================== LETTER MODAL (full screen) ===================== -->
+<div class="letter-modal" id="letterModal">
+  <div class="letter-close" id="letterClose">✕</div>
+  <div class="letter-modal-inner">
+    <div class="teddy-sticker tl">🧸</div>
+    <div class="teddy-sticker tr">🧸</div>
+    <div class="teddy-sticker bl">🧸</div>
+    <div class="teddy-sticker br">🧸</div>
+    <div class="letter-content">
+      <p>Sabse pyari Sana, 💋</p>
+      <p>Aaj ka din sirf tumhare liye hai, aur main chahta hoon tumhe pata ho ki tum meri zindagi mein kitni khaas ho. Tumhari muskurahat mera sabse acha pal hoti hai, aur tumhare saath bitaya har chhota sa waqt yaadgaar ban jaata hai. 💌 </p>
+      <p>Is naye saal mein tumhe ढेर saari khushiyan milein, saare sapne poore hon, aur tum hamesha aise hi hasti muskurati raho. Main hamesha tumhare saath hoon — har khushi mein, har mushkil mein. 😘 </p>
+      <p>Happy Birthday, meri jaan. Tumse bahut pyaar hai. 💗</p>
+      <div class="sign">— Tumhara altaf ~🤍 </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===================== REASONS ===================== -->
 <section id="reasons">
@@ -799,16 +970,51 @@
   canvas.addEventListener('touchmove', e=>{ e.preventDefault(); const p=getPos(e); scratchAt(p.x,p.y);}, {passive:false});
   canvas.addEventListener('touchend', ()=> scratching=false);
 
+  // ---------- voice note ----------
+  const vnAudio = document.getElementById('vnAudio');
+  const vnPlayBtn = document.getElementById('vnPlayBtn');
+  const vnBars = document.getElementById('vnBars');
+  vnPlayBtn.addEventListener('click', ()=>{
+    if(vnAudio.paused){
+      vnAudio.play().catch(()=>{});
+    } else {
+      vnAudio.pause();
+    }
+  });
+  vnAudio.addEventListener('play', ()=>{
+    vnPlayBtn.textContent = '❚❚';
+    vnBars.classList.add('playing');
+  });
+  vnAudio.addEventListener('pause', ()=>{
+    vnPlayBtn.textContent = '▶';
+    vnBars.classList.remove('playing');
+  });
+  vnAudio.addEventListener('ended', ()=>{
+    vnPlayBtn.textContent = '▶';
+    vnBars.classList.remove('playing');
+  });
+
   // ---------- envelope / letter ----------
   const envelope = document.getElementById('envelope');
-  const letterPaper = document.getElementById('letterPaper');
   const envHint = document.getElementById('env-hint');
+  const letterModal = document.getElementById('letterModal');
+  const letterClose = document.getElementById('letterClose');
+  let envelopeOpened = false;
   envelope.addEventListener('click', ()=>{
-    envelope.classList.add('open');
-    setTimeout(()=>{
-      letterPaper.classList.add('show');
+    if(!envelopeOpened){
+      envelopeOpened = true;
+      envelope.classList.add('open');
       envHint.style.display = 'none';
-    }, 500);
+      setTimeout(()=>{ letterModal.classList.add('show'); }, 500);
+    } else {
+      letterModal.classList.add('show');
+    }
+  });
+  letterClose.addEventListener('click', ()=>{
+    letterModal.classList.remove('show');
+  });
+  letterModal.addEventListener('click', (e)=>{
+    if(e.target === letterModal) letterModal.classList.remove('show');
   });
 
   // ---------- flip cards on tap (mobile) ----------
